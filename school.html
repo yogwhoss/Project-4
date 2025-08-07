@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Story School</title>
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 12px 24px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 20px auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
+    }
+
+    h1 {
+      font-family: 'Horizon', sans-serif;
+      font-size: 36px;
+      margin: 40px 0;
+      letter-spacing: 2px;
+    }
+
+    @font-face {
+      font-family: 'Horizon';
+      src: url('./font/horizon.otf') format('opentype');
+    }
+
+    .gallery {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 40px;
+      padding-bottom: 60px;
+      transition: filter 0.3s ease;
+    }
+
+    .card {
+      position: relative;
+      width: 150px;
+      height: 200px;
+      border-radius: 15px;
+      overflow: hidden;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .label-inside {
+      position: absolute;
+      bottom: 8px;
+      right: 8px;
+      font-family: 'Horizon', sans-serif;
+      font-size: 18px;
+      color: white;
+      text-shadow: 1px 1px 3px black;
+    }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(8px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      visibility: hidden;
+      opacity: 0;
+      transition: all 0.5s ease;
+    }
+
+    .overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .popup {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(15px);
+      border-radius: 15px;
+      display: flex;
+      max-width: 800px;
+      width: 90%;
+      padding: 30px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+      position: relative;
+      animation: fadeInUp 0.4s ease;
+      color: white;
+    }
+
+    .popup .text {
+      flex: 1;
+      text-align: left;
+      padding-right: 20px;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .popup h2 {
+      font-family: 'Horizon', sans-serif;
+      font-size: 24px;
+      margin-bottom: 15px;
+    }
+
+    .popup p {
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .popup img {
+      width: 250px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 15px;
+      font-size: 24px;
+      color: white;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .blurred {
+      filter: blur(5px);
+      pointer-events: none;
+    }
+
+    .foto-section {
+      padding: 60px 20px;
+    }
+
+    .foto-section h2 {
+      font-family: 'Horizon';
+      margin-bottom: 30px;
+      font-size: 28px;
+    }
+
+    .subjudul {
+      font-size: 22px;
+      margin: 40px 0 20px;
+      font-weight: bold;
+      font-family: 'Horizon';
+      color: #00f0ff;
+    }
+
+    .foto-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      max-width: 900px;
+      margin: 0 auto 60px;
+    }
+
+    .foto-grid img {
+      width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+    }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="tentang.html">Tentang</a>
+    <a href="school.html">School</a>
+    <a href="project.html">Project</a>
+  </nav>
+
+  <h1>STORY SCHOOL</h1>
+
+  <div class="gallery" id="gallery">
+    <div class="card" onclick="openPopup('sd')">
+      <img src="./img/sd.png" alt="SD">
+      <div class="label-inside">SD</div>
+    </div>
+    <div class="card" onclick="openPopup('smp')">
+      <img src="./img/smp.jpg" alt="SMP">
+      <div class="label-inside">SMP</div>
+    </div>
+    <div class="card" onclick="openPopup('smab')">
+      <img src="./img/smab.jpg" alt="SMA B">
+      <div class="label-inside">SMA.B</div>
+    </div>
+    <div class="card" onclick="openPopup('smac')">
+      <img src="./img/smac.jpg" alt="SMA C">
+      <div class="label-inside">SMA.C</div>
+    </div>
+  </div>
+
+  <!-- Overlay Popup -->
+  <div class="overlay" id="popupOverlay">
+    <div class="popup">
+      <button class="close-btn" onclick="closePopup()">&times;</button>
+      <div class="text" id="popupText"></div>
+      <img id="popupImage" src="" alt="Popup Image">
+    </div>
+  </div>
+
+  <!-- Foto Section -->
+  <div class="foto-section" id="foto-section">
+    <h2 data-aos="fade-up">Kenangan Sekolah</h2>
+
+    <!-- SD -->
+    <div class="subjudul" data-aos="fade-up">SD</div>
+    <div class="foto-grid" data-aos="fade-up">
+      <img src="./img/sd1.jpg">
+      <img src="./img/sd2.jpg">
+      <img src="./img/sd3.jpg">
+      <img src="./img/sd4.jpg">
+      <img src="./img/sd5.png">
+      <img src="./img/sd6.jpg">
+    </div>
+
+    <!-- SMP -->
+    <div class="subjudul" data-aos="fade-up">SMP</div>
+    <div class="foto-grid" data-aos="fade-up">
+      <img src="./img/smp1.jpg">
+      <img src="./img/smp2.webp">
+    </div>
+
+    <!-- SMA B -->
+    <div class="subjudul" data-aos="fade-up">SMA BANYUSARI</div>
+    <div class="foto-grid" data-aos="fade-up">
+      <img src="./img/smab1.jpg">
+      <img src="./img/smab2.jpg">
+      <img src="./img/smab3.jpg">
+    </div>
+
+    <!-- SMA C -->
+    <div class="subjudul" data-aos="fade-up">SMA CILAMAYA</div>
+    <div class="foto-grid" data-aos="fade-up">
+      <img src="./img/smac1.jpg">
+      <img src="./img/smac2.jpg">
+      <img src="./img/smac3.jpg">
+      <img src="./img/smac4.jpg">
+      <img src="./img/smac5.jpg">
+    </div>
+  </div>
+
+  <!-- AOS script -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 1000 });
+
+    const data = {
+      sd: {
+        title: "ADA APA SD ?",
+        desc: "Ada apa sd ? .. Karna Sd ku bener bener seru banget dari mulai kelas 1 sampe kelas 6 sd sampe lulus pun masih seru banget bahkan kenangan waktu sd aja banyak banget dan gak banyak orang tau tentang kenangan ini , dari mulai berantem ngobrol dan bahkan banyak orang yang di kerjain , dulu juga ada guru sd yang galak dan gabolehin main bola hahaha itu seru banget dan walaupun gaboleh kita tetep ngotot main bola sampe akhir nya di hukum dan di kempesin bolaa plastik nya , dan juga setiap ada acara lomba 02SN pasti kita galolos , terus juga ada sedih nya aku ga di pilih lomba itu ..",
+        img: "./img/sd.png"
+      },
+      smp: {
+        title: "ADA APA SMP ?",
+        desc: "Ada apa SMP ? . Smp aku ini adalah smp favorit , bukan ke favorit sih tapi aku sebelum masuk smp ini tuh udah di tempatin mamah gw , kakak gw yang pertama , kakak gw yang kedua.Jadi bisa di bilang legend banget ini smp , tapi setelah gw masuk smp ini banyak sekali pergaulan bebas seperti anak anak merokok di luar sekolah , bolos dari sekolah , tawuran , ada juga di sekolah ini tukang malakin / minta minta uang ke orang.Dan banyak juga guru yang jahat sama saya , jadi dulu itu jaman nya covid jadi belajar online , di kasih tugas online ...Jadi guru ada yang gak percaya saya gak kerjain tugas itu di masukin bk lah saya di marah marahin dan akhirnya saya tunjukin tugas saya dan nilai saya bagus bagus aja, dan disitu guru malu udah menghukum saya sebagai siswa yang gak bener.",
+        img: "./img/smp.jpg"
+      },
+      smab: {
+        title: "ADA APA SMA BANYUSARI ?",
+        desc: "Ada apa Sma Banyusari ? ... Ada apa ya hehehe sebenernya banyak sih kenangan disini wkwkwk , seru aja sekolah disini sih kayaa woww for what , gila seru disini banyak temen dan banyak yang baik juga kadang dapet temen motivasi , dapet temen yang suka ngelucu , gatau ini adalah masa masa SMA aku awal mpls aja yang gugup malu dan gak ada temen gitu tapi lama kelamaan ikut ikutan organisasi futsal dan yah banyak banget temen nya bukan dari SMA ini aja dari cikampek , jatisari ... ya ini lah dimana awal aku mulai bisa banyak tau apa yang aku gaktau di dunia ini gitu , kangen juga sih jadi pengen sekolah lagi disini , sedih nya tuh pas aku pindah sekolah aja .. gatau kenapa aku tuh sedih banget ninggalin semua nya kaya kehilangan rumah aja gitu .",
+        img: "./img/smab.jpg"
+      },
+      smac: {
+        title: "ADA APA SMA CILAMAYA ?",
+        desc: "Ada apa SMA CILAMAYA ? ... Dulu awal masuk udah di sambut sama temen temen jadi aku ini adalah anak baru di SMA CILAMAYA ini jadi awal itu aku ketemu temen sd yang namanya rifki , dan rifki ini baik banget sama aku ya bisa arahin aku di SMA ini tuh ada apa aja jadi awal yaa dari rifki , di kenalin ya sama  rifki ke temen temen nya , namanya riski biasa di panggil bedul , terus ada dewa , secka ... mereka baik semua kok enjoy kalo lagi main ke kelas juga , aku juga sering  di samperin rifki buat ikut main sama rifki , bedul ,dewa , secka .. Rifki tuh sering banget jemput ke kelas buat ajak main wkwk , dan terus akhirnya aku punya temen di kelas namanya radja dia tuh anak sd aku juga tapi beda kelas waktu sd , terus ada rayhan , dia tuh yang sering aku ajak jajan bareng gitu.. Ya gitu disana juga banyak ketemu guru guru yang baik sama yogi lingkungan nya bagus tapi orang orang kelas aja yang kurang menurut ku disekolah sini karna banyak nya ribut circle dan hal kecil selalu di ributin.",
+        img: "./img/smac.jpg"
+      }
+    };
+
+    function openPopup(key) {
+      const gallery = document.getElementById('gallery');
+      const overlay = document.getElementById('popupOverlay');
+      const popupText = document.getElementById('popupText');
+      const popupImage = document.getElementById('popupImage');
+
+      popupText.innerHTML = `<h2>${data[key].title}</h2><p>${data[key].desc}</p>`;
+      popupImage.src = data[key].img;
+
+      overlay.classList.add('active');
+      gallery.classList.add('blurred');
+    }
+
+    function closePopup() {
+      document.getElementById('popupOverlay').classList.remove('active');
+      document.getElementById('gallery').classList.remove('blurred');
+    }
+  </script>
+</body>
+</html>

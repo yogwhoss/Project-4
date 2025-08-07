@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Tentang Saya</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      font-family: 'Poppins', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    nav {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(12px);
+      border-radius: 12px;
+      padding: 12px 24px;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.1);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+      margin: 20px auto;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #00f0ff;
+      text-shadow: 0 0 10px #00f0ff;
+    }
+
+    @font-face {
+      font-family: 'Horizon';
+      src: url('./font/horizon.otf') format('opentype');
+    }
+
+    .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      max-width: 1000px;
+      margin: auto;
+      gap: 30px;
+      padding: 40px 20px;
+    }
+
+    .text-section {
+      flex: 1;
+      text-align: left;
+      animation: slideRight 1s ease forwards;
+      opacity: 0;
+    }
+
+    @keyframes slideRight {
+      from {
+        transform: translateX(-50px);
+        opacity: 0;
+      }
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    .foto-section {
+      text-align: center;
+    }
+
+    .foto-section img {
+      width: 220px;
+      height: auto;
+      border-radius: 15px;
+      object-fit: cover;
+      box-shadow: 0 0 10px #000;
+      animation: lanyardSwing 2.5s ease-in-out infinite;
+      transform-origin: top center;
+    }
+
+    .judul {
+      font-family: 'Horizon', sans-serif;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+
+    .deskripsi {
+      font-family: 'Times New Roman', serif;
+      font-size: 16px;
+      line-height: 1.8;
+      text-align: justify;
+    }
+
+    .nama {
+      font-family: 'Horizon', sans-serif;
+      font-size: 16px;
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
+
+    @keyframes lanyardSwing {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(2deg); }
+      75% { transform: rotate(-2deg); }
+    }
+
+    /* ==== Sosial Media Section ==== */
+    .sosmed-icons {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 10px;
+    }
+
+    .sosmed-icons a {
+      font-size: 24px;
+      color: white;
+      text-decoration: none;
+      transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
+      filter: grayscale(100%) brightness(0.8);
+    }
+
+    .sosmed-icons a:hover {
+      filter: none;
+      transform: scale(1.2);
+    }
+
+    .sosmed-icons .wa:hover {
+      color: #25D366;
+      text-shadow: 0 0 10px #25D366;
+    }
+
+    .sosmed-icons .ig:hover {
+      color: #C13584;
+      text-shadow: 0 0 10px #C13584;
+    }
+
+    .sosmed-icons .tt:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px #fff;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ✅ Navbar -->
+  <nav>
+    <a href="home.html">Home</a>
+    <a href="tentang.html">Tentang</a>
+    <a href="school.html">School</a>
+    <a href="project.html">Project</a>
+  </nav>
+
+  <!-- ✅ Isi Halaman Tentang -->
+  <div class="container">
+    <div class="text-section">
+      <h1 class="judul">TENTANG SAYA</h1>
+      <p class="deskripsi">
+        Hai, perkenalkan saya <strong>Yogi Permana Jati</strong>. Saya lahir di Karawang dan tinggal bersama kedua orang tua serta kakak dan adik saya. Saat ini saya berusia 18 tahun dan merupakan anak ketiga dalam keluarga. <br><br>
+        Saya sedang menempuh pendidikan di perguruan tinggi, tepatnya di <strong>Telkom University</strong> jurusan <strong>S1 Sistem Informasi</strong>, prodi <strong>Rekayasa Industri</strong>. Saya adalah pribadi yang kreatif dan pekerja keras, siap melangkah maju dan bersinergi meraih mimpi.
+      </p>
+    </div>
+    <div class="foto-section">
+      <img src="./img/yogikece.jpg" alt="Yogi Permana Jati">
+      <p class="nama">YOGI PERMANA JATI</p>
+      <div class="sosmed-icons">
+        <a href="https://wa.me/6282162656487" target="_blank" class="wa"><i class="fab fa-whatsapp"></i></a>
+        <a href="https://instagram.com/yogwh_oss" target="_blank" class="ig"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.tiktok.com/@yogwhoss?is_from_webapp=1&sender_device=pc" target="_blank" class="tt"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
